@@ -7,7 +7,7 @@
 
 Servo mtr;
 uint64_t pulseDuration;
-uint64_t distance;
+float distance;
 
 void setup()
 {
@@ -24,11 +24,11 @@ void loop()
     digitalWrite(TRIG_PIN, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
-    delayMicroseconds(10),
+    delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
     Serial.print("Distance: ");
-    Serial.print(distance);
+    Serial.println(distance);
     mtr.write(pos);
     delay(10);
     
@@ -38,11 +38,11 @@ void loop()
     digitalWrite(TRIG_PIN, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
-    delayMicroseconds(10),
+    delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
     Serial.print("Distance: ");
-    Serial.print(distance);
+    Serial.println(distance);
     mtr.write(pos);
     delay(10);
     
