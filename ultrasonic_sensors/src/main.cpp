@@ -19,19 +19,32 @@ void setup()
 
 void loop()
 {
-  for (int pos; pos <= 180; pos++)
+  for (int pos = 0; pos <= 180; pos++)
   {
     digitalWrite(TRIG_PIN, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
     delayMicroseconds(10),
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
-    distance = (pulseDuration * .0343) / 2;
+    distance = (pulseDuration * 0.0343) / 2;
     Serial.print("Distance: ");
-    Serial.println(distance);
+    Serial.print(distance);
     mtr.write(pos);
     delay(10);
-    Serial.println("position : ");
-    Serial.print(pos);
+    
+  }
+  for (int pos = 180; pos >= 0; pos--)
+  {
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10),
+    pulseDuration = pulseIn(ECHO_PIN, HIGH);
+    distance = (pulseDuration * 0.0343) / 2;
+    Serial.print("Distance: ");
+    Serial.print(distance);
+    mtr.write(pos);
+    delay(10);
+    
   }
 }
