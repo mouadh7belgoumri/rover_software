@@ -1,20 +1,26 @@
 #include <Arduino.h>
 #include <Servo.h>
 #define BAUD_RATE 9600
-#define ECHO_PIN 10
-#define TRIG_PIN 11
-#define SERVO_PIN 9
+#define SERVO_PIN 6
+#define ECHO_PIN 7
+#define TRIG_PIN 8
+#define SERVO_PIN2 9
+#define ECHO_PIN2 10
+#define TRIG_PIN2 11
 
-Servo mtr;
+Servo mtr, mtr2;
 uint64_t pulseDuration;
-float distance;
+float distance, distance2;
 
 void setup()
 {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
-  Serial.begin(BAUD_RATE);
+  pinMode(TRIG_PIN2, OUTPUT);
+  pinMode(ECHO_PIN2, INPUT);
   mtr.attach(SERVO_PIN);
+  mtr2.attach(SERVO_PIN2);
+  Serial.begin(BAUD_RATE);
 }
 
 void loop()
@@ -27,11 +33,20 @@ void loop()
     delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
-    Serial.print("Distance: ");
+    Serial.print("distance at front :");
     Serial.println(distance);
     mtr.write(pos);
+
+    digitalWrite(TRIG_PIN2, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN2, HIGH);
+    delayMicroseconds(10);
+    pulseDuration = pulseIn(ECHO_PIN2, HIGH);
+    distance2 = (pulseDuration * 0.0343) / 2;
+    Serial.print("Distance at back : ");
+    Serial.println(distance2);
+    mtr2.write(pos);
     delay(10);
-    
   }
   for (int pos = 180; pos >= 0; pos--)
   {
@@ -41,10 +56,19 @@ void loop()
     delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
-    Serial.print("Distance: ");
+    Serial.print("distance at front :");
     Serial.println(distance);
     mtr.write(pos);
+
+    digitalWrite(TRIG_PIN2, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN2, HIGH);
+    delayMicroseconds(10);
+    pulseDuration = pulseIn(ECHO_PIN2, HIGH);
+    distance2 = (pulseDuration * 0.0343) / 2;
+    Serial.print("Distance: ");
+    Serial.println(distance2);
+    mtr2.write(pos);
     delay(10);
-    
   }
 }
