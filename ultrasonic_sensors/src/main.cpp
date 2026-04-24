@@ -28,46 +28,40 @@ void loop()
   for (int pos = 0; pos <= 180; pos++)
   {
     digitalWrite(TRIG_PIN, LOW);
+    digitalWrite(TRIG_PIN2, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
+    digitalWrite(TRIG_PIN2, HIGH);
     delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
     Serial.print("distance at front :");
     Serial.println(distance);
-    mtr.write(pos);
-
-    digitalWrite(TRIG_PIN2, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIG_PIN2, HIGH);
-    delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN2, HIGH);
     distance2 = (pulseDuration * 0.0343) / 2;
     Serial.print("Distance at back : ");
     Serial.println(distance2);
+    mtr.write(pos);
     mtr2.write(pos);
     delay(10);
   }
   for (int pos = 180; pos >= 0; pos--)
   {
     digitalWrite(TRIG_PIN, LOW);
+    digitalWrite(TRIG_PIN2, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
+    digitalWrite(TRIG_PIN2, HIGH);
     delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN, HIGH);
     distance = (pulseDuration * 0.0343) / 2;
     Serial.print("distance at front :");
     Serial.println(distance);
-    mtr.write(pos);
-
-    digitalWrite(TRIG_PIN2, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIG_PIN2, HIGH);
-    delayMicroseconds(10);
     pulseDuration = pulseIn(ECHO_PIN2, HIGH);
     distance2 = (pulseDuration * 0.0343) / 2;
-    Serial.print("Distance: ");
+    Serial.print("Distance at back : ");
     Serial.println(distance2);
+    mtr.write(pos);
     mtr2.write(pos);
     delay(10);
   }
