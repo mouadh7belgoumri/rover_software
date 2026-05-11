@@ -1,3 +1,5 @@
+//TODO update pin set to match the circuit diagram
+
 #include <Arduino.h>
 #include <Servo.h>
 #define BAUD_RATE 9600
